@@ -12,6 +12,14 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 find_package(QT NAMES Qt6 Qt5 REQUIRED COMPONENTS Widgets)
 find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Widgets)
 
+include_directories(
+    ${CMAKE_CURRENT_SOURCE_DIR}
+    ${CMAKE_CURRENT_SOURCE_DIR}/Juego
+    ${CMAKE_CURRENT_SOURCE_DIR}/Juego/Casillas
+    ${CMAKE_CURRENT_SOURCE_DIR}/Saves
+    ${CMAKE_CURRENT_SOURCE_DIR}/Interfaz
+)
+
 set(PROJECT_SOURCES
         main.cpp
         mainwindow.cpp
@@ -35,8 +43,13 @@ if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
         juego/casillacarcel.h juego/casillacarcel.cpp
         juego/casillacalavera.h juego/casillacalavera.cpp
         juego/tablero.h juego/tablero.cpp
-        juego/gestorpartidas.h juego/gestorpartidas.cpp
+
         juego/juegooca.h juego/juegooca.cpp
+        saves/gestorpartidas.h saves/gestorpartidas.cpp
+        lectorarchivos.h lectorarchivos.cpp
+        interfaz/menuprincipal.h interfaz/menuprincipal.cpp interfaz/menuprincipal.ui
+        interfaz/menuconfiguracion.h interfaz/menuconfiguracion.cpp interfaz/menuconfiguracion.ui
+        interfaz/menujuego.h interfaz/menujuego.cpp interfaz/menujuego.ui
     )
 # Define target properties for Android with Qt 6 as:
 #    set_property(TARGET JuegoOCA APPEND PROPERTY QT_ANDROID_PACKAGE_SOURCE_DIR
