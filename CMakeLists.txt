@@ -50,6 +50,7 @@ if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
         interfaz/menuprincipal.h interfaz/menuprincipal.cpp interfaz/menuprincipal.ui
         interfaz/menuconfiguracion.h interfaz/menuconfiguracion.cpp interfaz/menuconfiguracion.ui
         interfaz/menujuego.h interfaz/menujuego.cpp interfaz/menujuego.ui
+        interfaz/menuconfiguracionpartida.h interfaz/menuconfiguracionpartida.cpp interfaz/menuconfiguracionpartida.ui
     )
 # Define target properties for Android with Qt 6 as:
 #    set_property(TARGET JuegoOCA APPEND PROPERTY QT_ANDROID_PACKAGE_SOURCE_DIR
