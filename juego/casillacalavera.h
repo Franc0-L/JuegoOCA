@@ -1,14 +1,10 @@
 #ifndef CASILLACALAVERA_H
 #define CASILLACALAVERA_H
 
-#include "casilla.h"
-
-class CasillaCalavera : public Casilla
+class CasillaCalavera
 {
 public:
-    explicit CasillaCalavera(int numero);
-
-    bool ejecutarEfecto(Jugador& jugador) override;
+    CasillaCalavera();
 };
 
 #endif // CASILLACALAVERA_H

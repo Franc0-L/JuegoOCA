@@ -14,11 +14,7 @@ class MenuPrincipal : public QWidget
 public:
     explicit MenuPrincipal(QWidget *parent = nullptr);
     ~MenuPrincipal();
-signals:
-    void jugar();
-    void configuracion();
-    void cargarPartida();
-    void salir();
+
 private:
     Ui::MenuPrincipal *ui;
 };

@@ -1,14 +1,10 @@
 #ifndef CASILLAPOZO_H
 #define CASILLAPOZO_H
 
-#include "casilla.h"
-
-class CasillaPozo : public Casilla
+class CasillaPozo
 {
 public:
-    explicit CasillaPozo(int numero);
-
-    bool ejecutarEfecto(Jugador& jugador) override;
+    CasillaPozo();
 };
 
 #endif // CASILLAPOZO_H

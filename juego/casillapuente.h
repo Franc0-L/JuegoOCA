@@ -1,14 +1,10 @@
 #ifndef CASILLAPUENTE_H
 #define CASILLAPUENTE_H
 
-#include "casilla.h"
-
-class CasillaPuente : public Casilla
+class CasillaPuente
 {
 public:
-    explicit CasillaPuente(int numero);
-
-    bool ejecutarEfecto(Jugador& jugador) override;
+    CasillaPuente();
 };
 
 #endif // CASILLAPUENTE_H

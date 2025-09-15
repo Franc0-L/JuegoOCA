@@ -1,14 +1,10 @@
 #ifndef CASILLAOCA_H
 #define CASILLAOCA_H
 
-#include "casilla.h"
-
-class CasillaOca : public Casilla
+class CasillaOca
 {
 public:
-    explicit CasillaOca(int numero);
-
-    bool ejecutarEfecto(Jugador& jugador) override;
+    CasillaOca();
 };
 
 #endif // CASILLAOCA_H

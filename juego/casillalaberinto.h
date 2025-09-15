@@ -1,14 +1,10 @@
 #ifndef CASILLALABERINTO_H
 #define CASILLALABERINTO_H
 
-#include "casilla.h"
-
-class CasillaLaberinto : public Casilla
+class CasillaLaberinto
 {
 public:
-    explicit CasillaLaberinto(int numero);
-
-    bool ejecutarEfecto(Jugador& jugador) override;
+    CasillaLaberinto();
 };
 
 #endif // CASILLALABERINTO_H

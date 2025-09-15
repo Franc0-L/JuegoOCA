@@ -1,14 +1,10 @@
 #ifndef CASILLAPOSADA_H
 #define CASILLAPOSADA_H
 
-#include "casilla.h"
-
-class CasillaPosada : public Casilla
+class CasillaPosada
 {
 public:
-    explicit CasillaPosada(int numero);
-
-    bool ejecutarEfecto(Jugador& jugador) override;
+    CasillaPosada();
 };
 
 #endif // CASILLAPOSADA_H
