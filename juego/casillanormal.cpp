@@ -1,0 +1,10 @@
+#include "casillanormal.h"
+
+CasillaNormal::CasillaNormal(int numero) : Casilla(numero) {}
+
+ResultadoCasilla CasillaNormal::aplicarEfecto(Jugador &jugador){
+    ResultadoCasilla r;
+    r.descripcion = "Casilla Normal. No pasa nada";
+
+    return r;
+}
