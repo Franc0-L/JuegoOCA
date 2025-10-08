@@ -10,3 +10,7 @@ ResultadoCasilla CasillaCarcel::aplicarEfecto(Jugador &jugador){
 
     return r;
 }
+
+std::string CasillaCarcel::getTipo() const{
+    return "Carcel";
+}

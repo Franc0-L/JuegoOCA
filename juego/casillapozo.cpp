@@ -10,3 +10,7 @@ ResultadoCasilla CasillaPozo::aplicarEfecto(Jugador &jugador){
 
     return r;
 }
+
+std::string CasillaPozo::getTipo() const{
+    return "Pozo";
+}

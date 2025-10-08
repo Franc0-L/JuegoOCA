@@ -52,6 +52,22 @@ border-radius: 10px;</string>
        </widget>
       </item>
       <item>
+       <widget class="QLabel" name="lblEstadoJugador">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">color: white; font-size: 16px; font-weight: bold; text-align: center;</string>
+        </property>
+        <property name="text">
+         <string>Estado: -</string>
+        </property>
+       </widget>
+      </item>
+      <item>
        <widget class="QLabel" name="lblTurnos">
         <property name="styleSheet">
          <string notr="true">color: white; font-size: 16px; font-weight: bold;</string>
@@ -201,22 +217,6 @@ border-radius: 10px;</string>
            </property>
            <property name="text">
             <string>🎲 LANZAR DADO 🎲</string>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QLabel" name="lblResultadoDado">
-           <property name="sizePolicy">
-            <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
-             <horstretch>0</horstretch>
-             <verstretch>0</verstretch>
-            </sizepolicy>
-           </property>
-           <property name="styleSheet">
-            <string notr="true">color: white; font-size: 16px; font-weight: bold; text-align: center;</string>
-           </property>
-           <property name="text">
-            <string>Resultado: -</string>
            </property>
           </widget>
          </item>

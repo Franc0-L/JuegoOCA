@@ -27,8 +27,9 @@ void MenuPartida::onNumJugadores(){
 
 void MenuPartida::onComenzarClicked(){
     int numJugadores = ui->comboJugadores->currentText().toInt();
-    int tamTablero = ui->spinTamTablero->value();
     bool personalizado = ui->checkPersonalizado->isChecked();
+    if(!ui->checkPersonalizado->isChecked()) ui->spinTamTablero->setValue(63);
+    int tamTablero = ui->spinTamTablero->value();
     bool dosDados = ui->checkDosDados->isChecked();
 
     std::vector<std::string> nombres;

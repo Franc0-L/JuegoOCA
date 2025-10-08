@@ -136,9 +136,7 @@ void JuegoOCA::aplicarEfectoCasilla(ResultadoCasilla &resultado, Jugador &jugado
     Casilla* cas = tablero.getCasilla(casillaFinal);
     if (dynamic_cast<CasillaPozo*>(cas) != nullptr){
         for (auto &otroJugador : jugadores){
-            if (otroJugador.getId() != jugador.getId() &&
-                otroJugador.getEstado() == Jugador::EN_POZO &&
-                otroJugador.getPosicionPenalizado() == casillaFinal){
+            if (otroJugador.getId() != jugador.getId() && otroJugador.getEstado() == Jugador::EN_POZO && otroJugador.getPosicionPenalizado() == casillaFinal){
                 otroJugador.setEstado(Jugador::NORMAL);
                 otroJugador.setPosicionPenalizado(0);
             }

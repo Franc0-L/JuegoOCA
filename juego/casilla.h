@@ -19,6 +19,7 @@ public:
     virtual ~Casilla() = default;
 
     virtual ResultadoCasilla aplicarEfecto(Jugador &jugador) = 0;
+    virtual std::string getTipo() const = 0;
     int getNumero() const;
 protected:
     int numero;

@@ -9,3 +9,7 @@ ResultadoCasilla CasillaLaberinto::aplicarEfecto(Jugador &jugador){
 
     return r;
 }
+
+std::string CasillaLaberinto::getTipo() const{
+    return "Laberinto";
+}

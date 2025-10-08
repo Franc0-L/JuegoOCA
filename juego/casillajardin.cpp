@@ -8,3 +8,7 @@ ResultadoCasilla CasillaJardin::aplicarEfecto(Jugador &jugador){
 
     return r;
 }
+
+std::string CasillaJardin::getTipo() const{
+    return "Jardin";
+}

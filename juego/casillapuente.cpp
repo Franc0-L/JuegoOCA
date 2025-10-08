@@ -9,3 +9,7 @@ ResultadoCasilla CasillaPuente::aplicarEfecto(Jugador &jugador){
 
     return r;
 }
+
+std::string CasillaPuente::getTipo() const{
+    return "Puente";
+}

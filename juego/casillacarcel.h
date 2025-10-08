@@ -9,6 +9,7 @@ public:
     CasillaCarcel(int numero);
 
     ResultadoCasilla aplicarEfecto(Jugador &jugador) override;
+    std::string getTipo () const override;
 };
 
 #endif // CASILLACARCEL_H

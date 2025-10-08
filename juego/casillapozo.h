@@ -9,6 +9,7 @@ public:
     CasillaPozo(int numero);
 
     ResultadoCasilla aplicarEfecto(Jugador &jugador) override;
+    std::string getTipo () const override;
 };
 
 #endif // CASILLAPOZO_H

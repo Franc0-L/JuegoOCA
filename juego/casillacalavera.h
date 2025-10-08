@@ -9,6 +9,7 @@ public:
     CasillaCalavera(int numero);
 
     ResultadoCasilla aplicarEfecto(Jugador &jugador) override;
+    std::string getTipo () const override;
 };
 
 #endif // CASILLACALAVERA_H

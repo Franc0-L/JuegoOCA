@@ -8,3 +8,7 @@ ResultadoCasilla CasillaNormal::aplicarEfecto(Jugador &jugador){
 
     return r;
 }
+
+std::string CasillaNormal::getTipo() const{
+    return "Normal";
+}

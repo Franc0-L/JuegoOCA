@@ -10,3 +10,7 @@ ResultadoCasilla CasillaOca::aplicarEfecto(Jugador &jugador){
 
     return r;
 }
+
+std::string CasillaOca::getTipo() const{
+    return "Oca";
+}

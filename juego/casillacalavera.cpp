@@ -9,3 +9,7 @@ ResultadoCasilla CasillaCalavera::aplicarEfecto(Jugador &jugador){
 
     return r;
 }
+
+std::string CasillaCalavera::getTipo() const{
+    return "Calavera";
+}

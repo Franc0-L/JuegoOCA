@@ -3,9 +3,7 @@
 #include "../juego/juegooca.h"
 #include "../juego/jugador.h"
 #include "../juego/tablero.h"
-#include "../juego/dado.h"
 #include <QMessageBox>
-#include <QTimer>
 
 MenuJuego::MenuJuego(QWidget *parent)
     : QWidget(parent)
@@ -27,13 +25,38 @@ MenuJuego::~MenuJuego()
 
 void MenuJuego::crearPartida(JuegoOCA* nuevoJuego){
     juego = nuevoJuego;
+    ui->txtHistorial->clear();
     actualizarInterfaz();
 }
 
 void MenuJuego::onDadoLanzado(){
     if (!juego || juego->getJuegoTerminado()) return;
 
-    ui->btnDado->setEnabled(false);
+    int indiceJugador = juego->getJugadorActual();
+    Jugador& jugadorAntes = juego->getJugadorPorIndice(indiceJugador);
+    int posicionInicial = jugadorAntes.getPosicion();
+    QString nombreJugador = QString::fromStdString(jugadorAntes.getNombre());
+
+    // Ejecutar turno
+    juego->siguienteTurno();
+    int posicionFinal = jugadorAntes.getPosicion();
+
+    // Agregar al historial
+    QString movimiento = QString("%1: %2 -> %3").arg(nombreJugador).arg(posicionInicial).arg(posicionFinal);
+
+    // Verificar si hubo efecto especial
+    Casilla* casilla = juego->getTablero().getCasilla(posicionFinal);
+    if (casilla && casilla->getTipo() != "Normal") {
+        movimiento += QString(" (%1)").arg(casilla->getTipo());
+    }
+
+    agregarAlHistorial(movimiento);
+    actualizarInterfaz();
+
+    // Verificar si el juego terminó
+    if (juego->getJuegoTerminado()) {
+        QMessageBox::information(this, "Juego Terminado", QString("%1 ha ganado el juego!").arg(nombreJugador));
+    }
 }
 
 void MenuJuego::onGuardarPartida(){
@@ -48,6 +71,7 @@ void MenuJuego::onGuardarPartida(){
 void MenuJuego::onCargarPartida(){
     std::string archivo = "partida.dat";
     if (juego && juego->cargarPartida(archivo)){
+        ui->txtHistorial->clear();
         actualizarInterfaz();
         agregarAlHistorial("Partida cargada correctamente");
         QMessageBox::information(this, "Partida Cargada", "La partida se ha cargado correctamente.");
@@ -81,7 +105,7 @@ void MenuJuego::actualizarInfoJugador(){
     case Jugador::EN_CARCEL: estado = "En Cárcel"; break;
     case Jugador::EN_POSADA: estado = "En Posada"; break;
     }
-    ui->lblResultadoDado->setText(QString("Posicion: %1 | %2").arg(jugador.getPosicion()).arg(estado));
+    ui->lblEstadoJugador->setText(QString("Posicion: %1 | %2").arg(jugador.getPosicion()).arg(estado));
 }
 
 void MenuJuego::actualizarTablero(){
@@ -90,7 +114,13 @@ void MenuJuego::actualizarTablero(){
 }
 
 void MenuJuego::actualizarHistorial(){
-    // FALTA
+    if (!juego) return;
+
+    // Mostrar información del turno actual
+    QString infoTurno = QString("TURNO %1").arg(juego->getTurno());
+    if (ui->txtHistorial->toPlainText().isEmpty() || !ui->txtHistorial->toPlainText().contains(infoTurno)){
+        agregarAlHistorial(infoTurno);
+    }
 }
 
 void MenuJuego::agregarAlHistorial(const QString &mensaje){
