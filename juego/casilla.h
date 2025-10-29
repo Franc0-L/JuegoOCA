@@ -20,6 +20,7 @@ public:
 
     virtual ResultadoCasilla aplicarEfecto(Jugador &jugador) = 0;
     virtual std::string getTipo() const = 0;
+    virtual std::string getColor() const = 0; // Metodo para colorear el tablero
     int getNumero() const;
 protected:
     int numero;

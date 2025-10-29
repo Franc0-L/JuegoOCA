@@ -16,8 +16,8 @@ public:
     ~MenuPrincipal();
 signals:
     void jugarClicked();
-    void configuracionClicked();
     void cargarPartidaClicked();
+    void creditosClicked();
 private:
     Ui::MenuPrincipal *ui;
 };

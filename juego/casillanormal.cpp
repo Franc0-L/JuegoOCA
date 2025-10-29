@@ -12,3 +12,7 @@ ResultadoCasilla CasillaNormal::aplicarEfecto(Jugador &jugador){
 std::string CasillaNormal::getTipo() const{
     return "Normal";
 }
+
+std::string CasillaNormal::getColor() const{
+    return "#b6e2a1";
+}

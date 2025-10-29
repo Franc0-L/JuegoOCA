@@ -34,7 +34,7 @@ border-radius: 10px;</string>
       <item>
        <widget class="QLabel" name="lblJugadores">
         <property name="styleSheet">
-         <string notr="true">color: white; font-size: 16px; font-weight: bold;</string>
+         <string notr="true">color: white; font-size: 18px; font-weight: bold;</string>
         </property>
         <property name="text">
          <string>JUGADOR ACTUAL:</string>
@@ -44,7 +44,7 @@ border-radius: 10px;</string>
       <item>
        <widget class="QLabel" name="lblJugadorActual">
         <property name="styleSheet">
-         <string notr="true">color: white; font-size: 16px; font-weight: bold;</string>
+         <string notr="true">color: white; font-size: 18px; font-weight: bold;</string>
         </property>
         <property name="text">
          <string>Jugador 1</string>
@@ -60,7 +60,7 @@ border-radius: 10px;</string>
          </sizepolicy>
         </property>
         <property name="styleSheet">
-         <string notr="true">color: white; font-size: 16px; font-weight: bold; text-align: center;</string>
+         <string notr="true">color: white; font-size: 18px; font-weight: bold; text-align: center;</string>
         </property>
         <property name="text">
          <string>Estado: -</string>
@@ -70,7 +70,7 @@ border-radius: 10px;</string>
       <item>
        <widget class="QLabel" name="lblTurnos">
         <property name="styleSheet">
-         <string notr="true">color: white; font-size: 16px; font-weight: bold;</string>
+         <string notr="true">color: white; font-size: 18px; font-weight: bold;</string>
         </property>
         <property name="text">
          <string>TURNO:</string>
@@ -80,7 +80,7 @@ border-radius: 10px;</string>
       <item>
        <widget class="QLabel" name="lblTurno">
         <property name="styleSheet">
-         <string notr="true">color: white; font-size: 16px; font-weight: bold;</string>
+         <string notr="true">color: white; font-size: 18px; font-weight: bold;</string>
         </property>
         <property name="text">
          <string>1</string>
@@ -103,7 +103,7 @@ border-radius: 10px;</string>
       <item>
        <widget class="QLabel" name="lblTamTablero">
         <property name="styleSheet">
-         <string notr="true">color: white; font-size: 16px; font-weight: bold;</string>
+         <string notr="true">color: white; font-size: 18px; font-weight: bold;</string>
         </property>
         <property name="text">
          <string>TABLERO</string>
@@ -113,7 +113,7 @@ border-radius: 10px;</string>
       <item>
        <widget class="QLabel" name="lblTamanioTablero">
         <property name="styleSheet">
-         <string notr="true">color: white; font-size: 16px; font-weight: bold;</string>
+         <string notr="true">color: white; font-size: 18px; font-weight: bold;</string>
         </property>
         <property name="text">
          <string>63</string>

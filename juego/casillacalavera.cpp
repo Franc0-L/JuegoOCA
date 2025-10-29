@@ -13,3 +13,7 @@ ResultadoCasilla CasillaCalavera::aplicarEfecto(Jugador &jugador){
 std::string CasillaCalavera::getTipo() const{
     return "Calavera";
 }
+
+std::string CasillaCalavera::getColor() const{
+    return "#d8a7a7";
+}

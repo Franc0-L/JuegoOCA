@@ -14,3 +14,7 @@ ResultadoCasilla CasillaPozo::aplicarEfecto(Jugador &jugador){
 std::string CasillaPozo::getTipo() const{
     return "Pozo";
 }
+
+std::string CasillaPozo::getColor() const{
+    return "#e6a1a1";
+}

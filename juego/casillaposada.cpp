@@ -14,3 +14,7 @@ ResultadoCasilla CasillaPosada::aplicarEfecto(Jugador &jugador){
 std::string CasillaPosada::getTipo() const{
     return "Posada";
 }
+
+std::string CasillaPosada::getColor() const{
+    return "#D2B48C";
+}

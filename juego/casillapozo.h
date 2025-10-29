@@ -10,6 +10,7 @@ public:
 
     ResultadoCasilla aplicarEfecto(Jugador &jugador) override;
     std::string getTipo () const override;
+    std::string getColor() const override;
 };
 
 #endif // CASILLAPOZO_H

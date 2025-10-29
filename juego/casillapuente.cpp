@@ -13,3 +13,7 @@ ResultadoCasilla CasillaPuente::aplicarEfecto(Jugador &jugador){
 std::string CasillaPuente::getTipo() const{
     return "Puente";
 }
+
+std::string CasillaPuente::getColor() const{
+    return "#a0d8f1";
+}

@@ -7,6 +7,8 @@ MenuPartida::MenuPartida(QWidget *parent)
 {
     ui->setupUi(this);
 
+    this->setStyleSheet("background: #2c3e50;");
+
     connect(ui->comboJugadores, SIGNAL(currentIndexChanged(int)), this, SLOT(onNumJugadores()));
     connect(ui->btnComenzarPartida, SIGNAL(clicked()), this, SLOT(onComenzarClicked()));
     connect(ui->btnCancelarPartida, SIGNAL(clicked()), this, SLOT(onCancelarClicked()));

@@ -9,7 +9,6 @@ CONFIG += c++17
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
-    interfaz/menuconfiguracion.cpp \
     interfaz/menujuego.cpp \
     interfaz/menupartida.cpp \
     interfaz/menuprincipal.cpp \
@@ -31,7 +30,6 @@ SOURCES += \
     mainwindow.cpp
 
 HEADERS += \
-    interfaz/menuconfiguracion.h \
     interfaz/menujuego.h \
     interfaz/menupartida.h \
     interfaz/menuprincipal.h \
@@ -52,7 +50,6 @@ HEADERS += \
     mainwindow.h
 
 FORMS += \
-    interfaz/menuconfiguracion.ui \
     interfaz/menujuego.ui \
     interfaz/menupartida.ui \
     interfaz/menuprincipal.ui \
@@ -63,5 +60,4 @@ qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
 
-RESOURCES += \
-    recursos.qrc
+RESOURCES +=

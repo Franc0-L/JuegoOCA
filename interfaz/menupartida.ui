@@ -290,7 +290,7 @@ QLineEdit:focus {
             <string notr="true">color: white; font-size: 14px;</string>
            </property>
            <property name="text">
-            <string>JUGADOR 1:</string>
+            <string>JUGADOR 1: 🔴</string>
            </property>
           </widget>
          </item>
@@ -312,7 +312,7 @@ QLineEdit:focus {
             <string notr="true">color: white; font-size: 14px;</string>
            </property>
            <property name="text">
-            <string>JUGADOR 2:</string>
+            <string>JUGADOR 2: 🔵</string>
            </property>
           </widget>
          </item>
@@ -334,7 +334,7 @@ QLineEdit:focus {
             <string notr="true">color: white; font-size: 14px;</string>
            </property>
            <property name="text">
-            <string>JUGADOR 3:</string>
+            <string>JUGADOR 3: 🟢</string>
            </property>
           </widget>
          </item>
@@ -356,7 +356,7 @@ QLineEdit:focus {
             <string notr="true">color: white; font-size: 14px;</string>
            </property>
            <property name="text">
-            <string>JUGADOR 4:</string>
+            <string>JUGADOR 4: 🟣</string>
            </property>
           </widget>
          </item>

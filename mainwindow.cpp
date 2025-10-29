@@ -15,22 +15,17 @@ MainWindow::MainWindow(QWidget *parent)
     setCentralWidget(stackPantallas);
 
     menuPrincipal = new MenuPrincipal(this);
-    menuConfiguracion = new MenuConfiguracion(this);
     menuPartida = new MenuPartida(this);
     menuJuego = new MenuJuego(this);
 
     stackPantallas->addWidget(menuPrincipal);
-    stackPantallas->addWidget(menuConfiguracion);
     stackPantallas->addWidget(menuPartida);
     stackPantallas->addWidget(menuJuego);
 
     mostrarMenuPrincipal();
     connect(menuPrincipal, SIGNAL(jugarClicked()), this, SLOT(mostrarMenuPartida()));
-    connect(menuPrincipal, SIGNAL(configuracionClicked()), this, SLOT(mostrarMenuConfiguracion()));
     connect(menuPrincipal, SIGNAL(cargarPartidaClicked()), this, SLOT(cargarPartida()));
-
-    // Señales del MenuConfiguracion
-    connect(menuConfiguracion, SIGNAL(volverClicked()), this, SLOT(mostrarMenuPrincipal()));
+    connect(menuPrincipal, SIGNAL(creditosClicked()), this, SLOT(mostrarCreditos()));
 
     // Señales del MenuPartida
     connect(menuPartida, SIGNAL(comenzarPartida(int, std::vector<std::string>, int, bool, bool)), this,
@@ -45,6 +40,9 @@ MainWindow::~MainWindow()
 {
     delete ui;
     if (juego) delete juego;
+    delete menuPrincipal;
+    delete menuPartida;
+    delete menuJuego;
 }
 
 void MainWindow::mostrarMenuPrincipal(){
@@ -53,10 +51,6 @@ void MainWindow::mostrarMenuPrincipal(){
 
 void MainWindow::mostrarMenuPartida(){
     stackPantallas->setCurrentWidget(menuPartida);
-}
-
-void MainWindow::mostrarMenuConfiguracion(){
-    stackPantallas->setCurrentWidget(menuConfiguracion);
 }
 
 void MainWindow::mostrarMenuJuego(){
@@ -97,4 +91,12 @@ void MainWindow::cargarPartida(){
         }
         mostrarMenuPrincipal();
     }
+}
+
+void MainWindow::mostrarCreditos(){
+    QMessageBox::about(this, "Créditos",
+                       "Juego de la Oca\n\n"
+                       "Versión 1.0\n\n"
+                       "Desarrollado por: Leonetti Franco y Gallardo Octavio\n\n"
+                       "Proyecto de Programación Orientada a Objetos\n");
 }

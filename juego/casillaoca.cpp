@@ -14,3 +14,7 @@ ResultadoCasilla CasillaOca::aplicarEfecto(Jugador &jugador){
 std::string CasillaOca::getTipo() const{
     return "Oca";
 }
+
+std::string CasillaOca::getColor() const{
+    return "#ffeb99";
+}

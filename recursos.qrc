@@ -2,7 +2,5 @@
     <qresource prefix="/sonidos"/>
     <qresource prefix="/imagenes"/>
     <qresource prefix="/sonidos/musica"/>
-    <qresource prefix="/sonidos/efectos">
-        <file>recursos/efectos/dado_sonido.wav</file>
-    </qresource>
+    <qresource prefix="/sonidos/efectos"/>
 </RCC>

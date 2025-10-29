@@ -12,3 +12,7 @@ ResultadoCasilla CasillaJardin::aplicarEfecto(Jugador &jugador){
 std::string CasillaJardin::getTipo() const{
     return "Jardin";
 }
+
+std::string CasillaJardin::getColor() const{
+    return "#8bd18b";
+}

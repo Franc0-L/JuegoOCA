@@ -3,7 +3,6 @@
 
 #include <QMainWindow>
 #include <QStackedWidget>
-#include "interfaz/menuconfiguracion.h"
 #include "interfaz/menujuego.h"
 #include "interfaz/menupartida.h"
 #include "interfaz/menuprincipal.h"
@@ -26,8 +25,8 @@ private slots:
     // Navegación entre pantallas
     void mostrarMenuPrincipal();
     void mostrarMenuPartida();
-    void mostrarMenuConfiguracion();
     void mostrarMenuJuego();
+    void mostrarCreditos();
 
     void iniciarNuevaPartida(int numJugadores, std::vector<std::string> nombres, int tamTablero, bool personalizado, bool dosDados);
     void cargarPartida();
@@ -36,7 +35,6 @@ private:
     QStackedWidget* stackPantallas;
 
     MenuPrincipal* menuPrincipal;
-    MenuConfiguracion* menuConfiguracion;
     MenuPartida* menuPartida;
     MenuJuego* menuJuego;
 

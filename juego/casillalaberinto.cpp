@@ -13,3 +13,7 @@ ResultadoCasilla CasillaLaberinto::aplicarEfecto(Jugador &jugador){
 std::string CasillaLaberinto::getTipo() const{
     return "Laberinto";
 }
+
+std::string CasillaLaberinto::getColor() const{
+    return "#f5d98b";
+}

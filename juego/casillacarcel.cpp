@@ -14,3 +14,7 @@ ResultadoCasilla CasillaCarcel::aplicarEfecto(Jugador &jugador){
 std::string CasillaCarcel::getTipo() const{
     return "Carcel";
 }
+
+std::string CasillaCarcel::getColor() const{
+    return "#c6b7f5";
+}
