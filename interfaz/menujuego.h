@@ -30,8 +30,13 @@ private:
     JuegoOCA* juego;
 
     void actualizarInfoJugador();
+
     void actualizarTablero(); // FALTA
-    void actualizarHistorial(); // FALTA
+    void limpiarTablero();
+    void crearCasilla(int numero, int fila, int columna);
+    QString obtenerInfoJugadoresEnCasilla(int numeroCasilla);
+
+    void actualizarHistorial();
     void agregarAlHistorial(const QString& mensaje);
 };
 

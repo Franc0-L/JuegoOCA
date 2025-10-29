@@ -110,7 +110,134 @@ void MenuJuego::actualizarInfoJugador(){
 
 void MenuJuego::actualizarTablero(){
     if (!juego) return;
-    // FALTA
+
+    limpiarTablero();
+
+    const Tablero& tablero = juego->getTablero();
+    int tamanio = tablero.getTamanio();
+
+    // Configurar grid layout si no existe
+    QGridLayout* gridLayout = qobject_cast<QGridLayout*>(ui->frameTablero->layout());
+    if (!gridLayout) {
+        gridLayout = new QGridLayout(ui->frameTablero);
+        gridLayout->setSpacing(2);
+        gridLayout->setContentsMargins(5, 5, 5, 5);
+        ui->frameTablero->setLayout(gridLayout);
+    }
+
+    // Calcular disposición del tablero
+    int columnas = 8; // Número fijo de columnas
+    int filas = (tamanio + columnas - 1) / columnas; // Redondeo hacia arriba
+
+    // Crear todas las casillas
+    for (int i = 1; i <= tamanio; ++i) {
+        int fila = (i - 1) / columnas;
+        int columna = (i - 1) % columnas;
+
+        crearCasilla(i, fila, columna);
+    }
+}
+
+void MenuJuego::limpiarTablero()
+{
+    QLayout* layout = ui->frameTablero->layout();
+    if (layout) {
+        QLayoutItem* item;
+        while ((item = layout->takeAt(0)) != nullptr) {
+            if (item->widget()) {
+                delete item->widget();
+            }
+            delete item;
+        }
+    }
+}
+
+void MenuJuego::crearCasilla(int numero, int fila, int columna)
+{
+    if (!juego) return;
+
+    const Tablero& tablero = juego->getTablero();
+    Casilla* casilla = tablero.getCasilla(numero);
+    if (!casilla) return;
+
+    // Crear frame de la casilla
+    QFrame* casillaFrame = new QFrame();
+    casillaFrame->setMinimumSize(75, 55);
+    casillaFrame->setMaximumSize(75, 55);
+    casillaFrame->setFrameStyle(QFrame::Box);
+    casillaFrame->setLineWidth(2);
+
+    // Layout vertical para la casilla
+    QVBoxLayout* layoutCasilla = new QVBoxLayout(casillaFrame);
+    layoutCasilla->setContentsMargins(2, 2, 2, 2);
+    layoutCasilla->setSpacing(1);
+    layoutCasilla->setAlignment(Qt::AlignCenter);
+
+    // Número de casilla
+    QLabel* labelNumero = new QLabel(QString::number(numero));
+    labelNumero->setAlignment(Qt::AlignCenter);
+    labelNumero->setStyleSheet("font-weight: bold; font-size: 10px; color: #000000;");
+    labelNumero->setMinimumHeight(12);
+    layoutCasilla->addWidget(labelNumero);
+
+    // Tipo de casilla (si no es normal)
+    QString tipo = QString::fromStdString(casilla->getTipo());
+    if (tipo != "Normal") {
+        QLabel* labelTipo = new QLabel(tipo);
+        labelTipo->setAlignment(Qt::AlignCenter);
+        labelTipo->setStyleSheet("font-size: 8px; font-weight: bold; color: #000000;");
+        labelTipo->setMinimumHeight(10);
+        layoutCasilla->addWidget(labelTipo);
+    }
+
+    // Información de jugadores en esta casilla
+    QString jugadoresInfo = obtenerInfoJugadoresEnCasilla(numero);
+    if (!jugadoresInfo.isEmpty()) {
+        QLabel* labelJugadores = new QLabel(jugadoresInfo);
+        labelJugadores->setAlignment(Qt::AlignCenter);
+        labelJugadores->setStyleSheet("font-size: 9px; font-weight: bold; "
+                                      "background-color: rgba(255,255,255,0.8); "
+                                      "border-radius: 3px; padding: 1px;");
+        labelJugadores->setMinimumHeight(12);
+        layoutCasilla->addWidget(labelJugadores);
+    }
+
+    // Agregar al grid layout
+    QGridLayout* gridLayout = qobject_cast<QGridLayout*>(ui->frameTablero->layout());
+    if (gridLayout) {
+        gridLayout->addWidget(casillaFrame, fila, columna);
+    }
+}
+
+QString MenuJuego::obtenerInfoJugadoresEnCasilla(int numeroCasilla)
+{
+    if (!juego) return "";
+
+    QStringList jugadoresEnCasilla;
+
+    // Buscar todos los jugadores que están en esta casilla
+    for (int i = 0; i < 4; ++i) {
+        try {
+            Jugador& jugador = juego->getJugadorPorIndice(i);
+            if (jugador.getPosicion() == numeroCasilla) {
+                // Usar diferentes colores/iconos para cada jugador
+                QString color;
+                switch (i) {
+                case 0: color = "🔴"; break; // Rojo
+                case 1: color = "🔵"; break; // Azul
+                case 2: color = "🟢"; break; // Verde
+                case 3: color = "🟣"; break; // Morado
+                default: color = "⚫"; break; // Negro
+                }
+                jugadoresEnCasilla.append(color);
+            }
+        } catch (...) {
+            // Jugador no existe, continuar
+            break;
+        }
+    }
+
+    return jugadoresEnCasilla.join(" ");
 }
 
 void MenuJuego::actualizarHistorial(){
