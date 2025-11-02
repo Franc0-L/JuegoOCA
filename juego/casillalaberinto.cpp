@@ -17,3 +17,7 @@ std::string CasillaLaberinto::getTipo() const{
 std::string CasillaLaberinto::getColor() const{
     return "#f5d98b";
 }
+
+int CasillaLaberinto::getDestino() const{
+    return destino;
+}

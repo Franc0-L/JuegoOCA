@@ -17,7 +17,8 @@ public:
     explicit MenuPartida(QWidget *parent = nullptr);
     ~MenuPartida();
 signals:
-    void comenzarPartida(int numJugadores, std::vector<std::string> nombres, int tamTablero, bool personalizado, bool dosDados);
+    void comenzarPartida(int numJugadores, std::vector<std::string> nombres, int tamTablero,
+                         bool personalizado, bool dosDados, int semilla = 0);
     void cancelarClicked();
 private slots:
     void onNumJugadores();

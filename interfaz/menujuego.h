@@ -31,7 +31,7 @@ private:
 
     void actualizarInfoJugador();
 
-    void actualizarTablero(); // FALTA
+    void actualizarTablero();
     void limpiarTablero();
     void crearCasilla(int numero, int fila, int columna);
     QString obtenerInfoJugadoresEnCasilla(int numeroCasilla);

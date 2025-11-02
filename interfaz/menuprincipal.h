@@ -18,6 +18,8 @@ signals:
     void jugarClicked();
     void cargarPartidaClicked();
     void creditosClicked();
+private slots:
+    void reglasClicked();
 private:
     Ui::MenuPrincipal *ui;
 };

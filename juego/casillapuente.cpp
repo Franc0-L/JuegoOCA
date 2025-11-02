@@ -17,3 +17,7 @@ std::string CasillaPuente::getTipo() const{
 std::string CasillaPuente::getColor() const{
     return "#a0d8f1";
 }
+
+int CasillaPuente::getDestino() const{
+    return destino;
+}

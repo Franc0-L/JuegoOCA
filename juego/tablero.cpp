@@ -13,13 +13,24 @@
 #include <ctime>
 #include <algorithm>
 
-Tablero::Tablero(int tamanio, bool personalizado) : tamanio(tamanio), personalizado(personalizado){
-    srand(time(nullptr));
+Tablero::Tablero(int tamanio, bool personalizado, int semilla) : tamanio(tamanio), personalizado(personalizado), semilla(semilla){
+    if (this->semilla == 0) this->semilla = static_cast<int>(time(nullptr));
+    srand(this->semilla);
+
     if (personalizado){
         iniTableroPersonalizado();
     } else{
         inicializarTablero();
     }
+}
+
+Tablero::~Tablero(){
+    limpiarCasillas();
+}
+
+void Tablero::limpiarCasillas(){
+    for (Casilla* casilla : casillas) delete casilla;
+    casillas.clear();
 }
 
 void Tablero::inicializarTablero(){
@@ -57,10 +68,14 @@ void Tablero::iniTableroPersonalizado(){
 void Tablero::armarCasillasAleatorias(){
     int porcentaje = 10 + (rand() % 6); // entre un 10% y un 15% del tablero
     int cantEspeciales = tamanio * porcentaje / 100;
+
     for (int i = 0; i < cantEspeciales; ++i){
         int j = 1 + (rand() % (tamanio - 2)); // Rango posible
         int numero = j + 1;
         int tipo = rand() % 7; // Casillas Especiales
+
+        delete casillas[j];
+
         switch (tipo){
         case 0:
             casillas[j] = new CasillaOca(numero, std::min(numero + 9, tamanio));
@@ -95,12 +110,35 @@ Casilla* Tablero::getCasilla(int numero) const{
     return casillas[numero - 1];
 }
 
+int Tablero::getSemilla() const{
+    return semilla;
+}
+
+bool Tablero::esPersonalizado() const{
+    return personalizado;
+}
+
 int Tablero::getTamanio() const{
     return tamanio;
 }
 
-void Tablero::setTamanio(int nuevoTamanio){
+void Tablero::setTamanio(int nuevoTamanio, bool esPersonalizado, int nuevaSemilla){
+    if (nuevoTamanio == tamanio && esPersonalizado == personalizado && (nuevaSemilla == 0 || nuevaSemilla == semilla)) return;
+
+    // Actualizar propiedades
     tamanio = nuevoTamanio;
+    personalizado = esPersonalizado;
+
+    // Usar nueva semilla si se proporciona, de lo contrario mantener la actual
+    if (nuevaSemilla != 0) semilla = nuevaSemilla;
+
+    // Limpiar casillas existentes
+    limpiarCasillas();
+
+    // Reinicializar generador con la semilla
+    srand(semilla);
+
+    // Reconstruir tablero
     if (personalizado){
         iniTableroPersonalizado();
     } else{

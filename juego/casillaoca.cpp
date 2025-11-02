@@ -18,3 +18,7 @@ std::string CasillaOca::getTipo() const{
 std::string CasillaOca::getColor() const{
     return "#ffeb99";
 }
+
+int CasillaOca::getDestino() const{
+    return destino;
+}

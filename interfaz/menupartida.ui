@@ -383,6 +383,53 @@ border-radius: 10px;</string>
          <enum>QFrame::Shadow::Raised</enum>
         </property>
         <layout class="QGridLayout" name="gridLayout_2">
+         <item row="2" column="0">
+          <widget class="QCheckBox" name="checkDosDados">
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
+           </property>
+           <property name="minimumSize">
+            <size>
+             <width>215</width>
+             <height>0</height>
+            </size>
+           </property>
+           <property name="maximumSize">
+            <size>
+             <width>16777215</width>
+             <height>100</height>
+            </size>
+           </property>
+           <property name="styleSheet">
+            <string notr="true">QCheckBox {
+    color: white;
+    font-size: 14px;
+    font-weight: bold;
+    spacing: 8px;
+}
+QCheckBox::indicator {
+    width: 20px;
+    height: 20px;
+}
+QCheckBox::indicator:unchecked {
+    background: white;
+    border: 2px solid #bdc3c7;
+    border-radius: 3px;
+}
+QCheckBox::indicator:checked {
+    background: qlineargradient(x1:0, y1:0, x2:0, y2:1, stop:0 #9b59b6, stop:1 #8e44ad);
+    border: 2px solid #8e44ad;
+    border-radius: 3px;
+}</string>
+           </property>
+           <property name="text">
+            <string>USAR DOS DADOS</string>
+           </property>
+          </widget>
+         </item>
          <item row="1" column="1">
           <widget class="QSpinBox" name="spinTamTablero">
            <property name="sizePolicy">
@@ -391,9 +438,15 @@ border-radius: 10px;</string>
              <verstretch>0</verstretch>
             </sizepolicy>
            </property>
+           <property name="minimumSize">
+            <size>
+             <width>74</width>
+             <height>0</height>
+            </size>
+           </property>
            <property name="maximumSize">
             <size>
-             <width>55</width>
+             <width>75</width>
              <height>16777215</height>
             </size>
            </property>
@@ -423,6 +476,34 @@ QSpinBox:enabled {
            </property>
            <property name="maximum">
             <number>90</number>
+           </property>
+          </widget>
+         </item>
+         <item row="1" column="0">
+          <widget class="QLabel" name="lblTamTablero">
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
+           </property>
+           <property name="minimumSize">
+            <size>
+             <width>215</width>
+             <height>0</height>
+            </size>
+           </property>
+           <property name="maximumSize">
+            <size>
+             <width>16777215</width>
+             <height>100</height>
+            </size>
+           </property>
+           <property name="styleSheet">
+            <string notr="true">color: white; font-size: 14px; font-weight: bold;</string>
+           </property>
+           <property name="text">
+            <string>TAMAÑO DEL TABLERO</string>
            </property>
           </widget>
          </item>
@@ -470,81 +551,6 @@ QCheckBox::indicator:checked {
            </property>
            <property name="text">
             <string>TABLERO PERSONALIZADO</string>
-           </property>
-          </widget>
-         </item>
-         <item row="1" column="0">
-          <widget class="QLabel" name="lblTamTablero">
-           <property name="sizePolicy">
-            <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
-             <horstretch>0</horstretch>
-             <verstretch>0</verstretch>
-            </sizepolicy>
-           </property>
-           <property name="minimumSize">
-            <size>
-             <width>215</width>
-             <height>0</height>
-            </size>
-           </property>
-           <property name="maximumSize">
-            <size>
-             <width>16777215</width>
-             <height>100</height>
-            </size>
-           </property>
-           <property name="styleSheet">
-            <string notr="true">color: white; font-size: 14px; font-weight: bold;</string>
-           </property>
-           <property name="text">
-            <string>TAMAÑO DEL TABLERO</string>
-           </property>
-          </widget>
-         </item>
-         <item row="2" column="0">
-          <widget class="QCheckBox" name="checkDosDados">
-           <property name="sizePolicy">
-            <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
-             <horstretch>0</horstretch>
-             <verstretch>0</verstretch>
-            </sizepolicy>
-           </property>
-           <property name="minimumSize">
-            <size>
-             <width>215</width>
-             <height>0</height>
-            </size>
-           </property>
-           <property name="maximumSize">
-            <size>
-             <width>16777215</width>
-             <height>100</height>
-            </size>
-           </property>
-           <property name="styleSheet">
-            <string notr="true">QCheckBox {
-    color: white;
-    font-size: 14px;
-    font-weight: bold;
-    spacing: 8px;
-}
-QCheckBox::indicator {
-    width: 20px;
-    height: 20px;
-}
-QCheckBox::indicator:unchecked {
-    background: white;
-    border: 2px solid #bdc3c7;
-    border-radius: 3px;
-}
-QCheckBox::indicator:checked {
-    background: qlineargradient(x1:0, y1:0, x2:0, y2:1, stop:0 #9b59b6, stop:1 #8e44ad);
-    border: 2px solid #8e44ad;
-    border-radius: 3px;
-}</string>
-           </property>
-           <property name="text">
-            <string>USAR DOS DADOS</string>
            </property>
           </widget>
          </item>

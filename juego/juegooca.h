@@ -11,7 +11,7 @@ class JuegoOCA
 {
 public:
     JuegoOCA(int numJugadores, std::vector<std::string> &nombres, int tamTablero = 63,
-             bool tableroPersonalizado = false, bool dosDados = false);
+             bool tableroPersonalizado = false, bool dosDados = false, int semillaTablero = 0);
     ~JuegoOCA() = default;
 
     void iniciarJuego();
@@ -29,6 +29,7 @@ public:
     void setTableroPersonalizado(bool personalizado);
     void setTamanioTablero(int tamanio);
 
+    void guardarConfiguracion(std::string &archivo);
     void guardarPartida(std::string &archivo);
     bool cargarPartida(std::string &archivo);
 private:

@@ -76,7 +76,9 @@ void MenuJuego::onDadoLanzado(){
 
 void MenuJuego::onGuardarPartida(){
     if (juego){
-        std::string archivo = "partida.dat";
+        std::string archivo = "../../guardado/partida.dat";
+        std::string configuracion = "../../guardado/configuracion.txt";
+        juego->guardarConfiguracion(configuracion);
         juego->guardarPartida(archivo);
         agregarAlHistorial("Partida guardada correctamente");
         QMessageBox::information(this, "Partida Guardada", "La partida se ha guardado correctamente.");
@@ -84,7 +86,7 @@ void MenuJuego::onGuardarPartida(){
 }
 
 void MenuJuego::onCargarPartida(){
-    std::string archivo = "partida.dat";
+    std::string archivo = "../../guardado/partida.dat";
     if (juego && juego->cargarPartida(archivo)){
         ui->txtHistorial->clear();
         actualizarInterfaz();
@@ -170,36 +172,44 @@ void MenuJuego::actualizarTablero(){
     QGridLayout* gridLayout = qobject_cast<QGridLayout*>(ui->frameTablero->layout());
     if (!gridLayout){
         gridLayout = new QGridLayout(ui->frameTablero);
-        gridLayout->setSpacing(3);
-        gridLayout->setContentsMargins(10, 10, 10, 10);
+        gridLayout->setSpacing(1);
+        gridLayout->setContentsMargins(5, 5, 5, 5);
         gridLayout->setAlignment(Qt::AlignCenter);
         ui->frameTablero->setLayout(gridLayout);
     }
 
-    // Diseño del tablero
-    ui->frameTablero->setStyleSheet(
-        "QFrame#frameTablero {"
-        "   background: qlineargradient(x1:0, y1:0, x2:1, y2:1, stop:0 #8B4513, stop:0.5 #A0522D, stop:1 #8B4513);"
-        "   border: 8px solid #5D4037;"
-        "   border-radius: 15px;"
-        "}"
-    );
-
     // Calcular disposición del tablero
-    int columnas = 9;
+    const int columnas = 9;
     int filas = (tamanio + columnas - 1) / columnas;
+    int matriz[10][10] = {{0}};
 
-    // Crear todas las casillas
-    for (int i = 1; i <= tamanio; ++i) {
-        int fila = (i - 1) / columnas;
-        int columna = (i - 1) % columnas;
+    int arriba = 0, abajo = filas - 1;
+    int izquierda = 0, derecha = columnas - 1;
+    int num = 1;
+    while (arriba <= abajo && izquierda <= derecha && num <= tamanio){
+        // izquierda a derecha
+        for (int j = izquierda; j <= derecha && num <= tamanio; ++j) matriz[arriba][j] = num++;
+        arriba++;
 
-        // Patrón de serpiente (alternar dirección por fila)
-        if (fila % 2 == 1) {
-            columna = columnas - 1 - columna;
+        // arriba a abajo
+        for (int i = arriba; i <= abajo && num <= tamanio; ++i) matriz[i][derecha] = num++;
+        derecha--;
+
+        // derecha a izquierda
+        for (int j = derecha; j >= izquierda && num <= tamanio; --j) matriz[abajo][j] = num++;
+        abajo--;
+
+        // abajo a arriba
+        for (int i = abajo; i >= arriba && num <= tamanio; --i) matriz[i][izquierda] = num++;
+        izquierda++;
+    }
+
+    // Casillas segun la matriz del tablero
+    for (int i = 0; i < filas; ++i){
+        for (int j = 0; j < columnas; ++j){
+            int numCasilla = matriz[i][j];
+            if (numCasilla > 0 && numCasilla <= tamanio) crearCasilla(numCasilla, i, j);
         }
-
-        crearCasilla(i, fila, columna);
     }
 }
 
@@ -223,34 +233,39 @@ void MenuJuego::crearCasilla(int numero, int fila, int columna){
     frame->setStyleSheet(QString(
                              "QFrame {"
                              " background-color: %1;"
-                             " border: 2px solid #4a4a4a;"
+                             " border: 1px #4a4a4a;"
                              " border-radius: 8px;"
                              "}"
                              ).arg(colorFondo));
 
-    // Layout vertical simple
-    QVBoxLayout* layout = new QVBoxLayout(frame);
-    layout->setContentsMargins(4, 4, 4, 4);
-    layout->setSpacing(2);
-    layout->setAlignment(Qt::AlignCenter);
+    // Configuracion layout de las casillas
+    QVBoxLayout* layoutPrincipal = new QVBoxLayout(frame);
+    layoutPrincipal->setContentsMargins(4, 4, 4, 4);
+    layoutPrincipal->setSpacing(2);
 
-    // Número de casilla
+    QHBoxLayout* layoutSuperior = new QHBoxLayout();
+    layoutSuperior->setContentsMargins(0, 0, 0, 0);
+    layoutSuperior->setSpacing(0);
     QLabel* lblNum = new QLabel(QString::number(numero), frame);
-    lblNum->setAlignment(Qt::AlignCenter);
-    lblNum->setStyleSheet("font-weight: bold; font-size: 15px; color: #000;");
-    layout->addWidget(lblNum);
+    lblNum->setAlignment(Qt::AlignLeft | Qt::AlignTop);
+    lblNum->setStyleSheet("font-weight: bold; font-size: 13px; color: #000;");
+    layoutSuperior->addWidget(lblNum);
+    layoutSuperior->addStretch();
+    layoutPrincipal->addLayout(layoutSuperior);
 
-    // Tipo (solo si no es normal)
+    QLabel* lblTipo = new QLabel(tipo, frame);
+    lblTipo->setAlignment(Qt::AlignCenter);
     if (tipo != "Normal") {
-        QLabel* lblTipo = new QLabel(tipo, frame);
-        lblTipo->setAlignment(Qt::AlignCenter);
-        lblTipo->setStyleSheet("font-size: 15px; font-weight: bold; color: #333;");
-        layout->addWidget(lblTipo);
+        lblTipo->setStyleSheet("font-size: 14px; font-weight: bold; color: #333;");
+    } else {
+        lblTipo->setStyleSheet("font-size: 14px; font-weight: bold; color: #222;");
     }
+    layoutPrincipal->addStretch();
+    layoutPrincipal->addWidget(lblTipo, 0, Qt::AlignCenter);
+    layoutPrincipal->addStretch();
 
-    // Jugadores en esta casilla
     QString jugadores = obtenerInfoJugadoresEnCasilla(numero);
-    if (!jugadores.isEmpty()) {
+    if (!jugadores.isEmpty()){
         QLabel* lblJugadores = new QLabel(jugadores, frame);
         lblJugadores->setAlignment(Qt::AlignCenter);
         lblJugadores->setStyleSheet(
@@ -258,23 +273,22 @@ void MenuJuego::crearCasilla(int numero, int fila, int columna){
             "background-color: rgba(255,255,255,0.8);"
             "border-radius: 3px; padding: 1px;"
             );
-        layout->addWidget(lblJugadores);
+        layoutPrincipal->addWidget(lblJugadores, 0, Qt::AlignBottom | Qt::AlignCenter);
     }
 
-    // Destacar casilla del jugador actual
+    // Destacar jugador del turno actual
     int jugadorActual = juego->getJugadorActual();
     Jugador& jugador = juego->getJugadorPorIndice(jugadorActual);
     if (jugador.getPosicion() == numero) {
         frame->setStyleSheet(QString(
                                  "QFrame {"
                                  " background-color: %1;"
-                                 " border: 3px solid #FF0000;"
+                                 " border: 3px solid #FF4444;"
                                  " border-radius: 8px;"
                                  "}"
                                  ).arg(colorFondo));
     }
 
-    // Agregar al grid layout
     QGridLayout* gridLayout = qobject_cast<QGridLayout*>(ui->frameTablero->layout());
     if (gridLayout) {
         gridLayout->addWidget(frame, fila, columna);

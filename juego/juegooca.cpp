@@ -1,11 +1,13 @@
 #include "juegooca.h"
 #include "casillapozo.h"
 #include <fstream>
+#include <iostream>
 
-JuegoOCA::JuegoOCA(int numJugadores, std::vector<std::string> &nombres, int tamTablero, bool tableroPersonalizado, bool dosDados)
-    : tablero(tamTablero, tableroPersonalizado), dado(), jugadorActual(0), juegoTerminado(false), usarDosDados(dosDados),
-    tableroPersonalizado(tableroPersonalizado),  turno(1){
-
+JuegoOCA::JuegoOCA(int numJugadores, std::vector<std::string> &nombres, int tamTablero, bool tableroPersonalizado, bool dosDados, int semillaTablero)
+    : tablero(tamTablero, tableroPersonalizado, semillaTablero),
+    dado(), jugadorActual(0), juegoTerminado(false), usarDosDados(dosDados),
+    tableroPersonalizado(tableroPersonalizado), turno(1)
+{
     for (int i = 0; i < numJugadores; ++i){
         jugadores.emplace_back(nombres[i], i + 1);
     }
@@ -62,10 +64,10 @@ void JuegoOCA::lanzarDados(){
         dado.tiradaDoble(d1, d2);
         pasos = d1 + d2;
         // Regla especial para tiradas con doble dado
-        if ((d1 + 1 == d2) || (d2 + 1 == d1)){
+        if ((d1 + 1 == d2) || (d2 + 1 == d1)){ // Resultado sucesivo de los dados: 1 paso extra
             pasos += 1;
         }
-        else if (d1 == d2){
+        else if (d1 == d2){ // Resultado igual en ambos dados: 2 pasos extras
             pasos += 2;
         }
     } else{
@@ -177,17 +179,96 @@ int JuegoOCA::getTurno() const{
 
 void JuegoOCA::setTableroPersonalizado(bool personalizado){
     this->tableroPersonalizado = personalizado;
-    int tamanioActual = tablero.getTamanio();
-    tablero = Tablero(tamanioActual, personalizado);
+    tablero.setTamanio(tablero.getTamanio(), personalizado, tablero.getSemilla());
 }
 
 void JuegoOCA::setTamanioTablero(int tamanio){
-    tablero.setTamanio(tamanio);
+    tablero.setTamanio(tamanio, tableroPersonalizado, tablero.getSemilla());
+}
+
+void JuegoOCA::guardarConfiguracion(std::string &archivo){
+    std::ofstream guardar(archivo);
+    if (!guardar.is_open()) return;
+
+    guardar<< "=========================================\n";
+    guardar<< "    CONFIGURACION JUEGO DE LA OCA\n";
+    guardar<< "=========================================\n\n";
+
+    // Información general del juego
+    guardar<< "INFORMACION GENERAL:\n";
+    guardar<< "====================\n";
+    guardar<< "Numero de jugadores: "<< jugadores.size()<< "\n";
+    guardar<< "Jugador actual: "<< jugadorActual<< "\n";
+    guardar<< "Turno actual: "<< turno<< "\n";
+    guardar<< "Juego terminado: "<< (juegoTerminado ? "Si" : "No")<< "\n";
+    guardar<< "Usar dos dados: "<< (usarDosDados ? "Si" : "No")<< "\n";
+    guardar<< "Tablero personalizado: "<< (tableroPersonalizado ? "Si" : "No")<< "\n";
+    guardar<< "Semilla del tablero: "<< tablero.getSemilla()<< "\n";
+    guardar<< "Tamaño del tablero: "<< tablero.getTamanio()<< "\n\n";
+
+    // Información de los jugadores
+    guardar<< "INFORMACION DE JUGADORES:\n";
+    guardar<< "=========================\n";
+    for (size_t i = 0; i < jugadores.size(); ++i) {
+        guardar<< "Jugador "<< (i + 1)<< ":\n";
+        guardar<< "  Nombre: "<< jugadores[i].getNombre()<< "\n";
+        guardar<< "  Posicion: "<< jugadores[i].getPosicion()<< "\n";
+
+        std::string estado;
+        switch(jugadores[i].getEstado()) {
+        case Jugador::NORMAL: estado = "Normal"; break;
+        case Jugador::EN_POZO: estado = "En Pozo"; break;
+        case Jugador::EN_CARCEL: estado = "En Carcel"; break;
+        case Jugador::EN_POSADA: estado = "En Posada"; break;
+        }
+        guardar<< "  Estado: "<< estado<< "\n";
+        guardar<< "  Turnos en estado: "<< jugadores[i].getTurnosEstado()<< "\n";
+        guardar<< "  Posicion penalizado: "<< jugadores[i].getPosicionPenalizado()<< "\n\n";
+    }
+
+    // Información del tablero
+    guardar<< "INFORMACION DEL TABLERO:\n";
+    guardar<< "========================\n";
+    guardar<< "Total de casillas: "<< tablero.getTamanio()<< "\n";
+
+    // Contar tipos de casillas especiales
+    int ocas = 0, puentes = 0, posadas = 0, pozos = 0;
+    int laberintos = 0, carceles = 0, calaveras = 0, jardines = 0;
+
+    for (int i = 1; i <= tablero.getTamanio(); ++i) {
+        Casilla* casilla = tablero.getCasilla(i);
+        if (casilla) {
+            std::string tipo = casilla->getTipo();
+            if (tipo == "Oca") ocas++;
+            else if (tipo == "Puente") puentes++;
+            else if (tipo == "Posada") posadas++;
+            else if (tipo == "Pozo") pozos++;
+            else if (tipo == "Laberinto") laberintos++;
+            else if (tipo == "Carcel") carceles++;
+            else if (tipo == "Calavera") calaveras++;
+            else if (tipo == "Jardin") jardines++;
+        }
+    }
+    guardar<< "Casillas especiales:\n";
+    guardar<< "  Ocas: "<< ocas<< "\n";
+    guardar<< "  Puentes: "<< puentes<< "\n";
+    guardar<< "  Posadas: "<< posadas<< "\n";
+    guardar<< "  Pozos: "<< pozos<< "\n";
+    guardar<< "  Laberintos: "<< laberintos<< "\n";
+    guardar<< "  Carceles: "<< carceles<< "\n";
+    guardar<< "  Calaveras: "<< calaveras<< "\n";
+    guardar<< "  Jardines: "<< jardines<< "\n\n";
+
+    guardar.close();
 }
 
 void JuegoOCA::guardarPartida(std::string &archivo){
     std::ofstream guardar(archivo, std::ios::binary);
     if (!guardar.is_open()) return;
+
+    // Semilla del tablero personalizado
+    int semillaTablero = tablero.getSemilla();
+    guardar.write((char*)&semillaTablero, sizeof(semillaTablero));
 
     guardar.write((char*)&jugadorActual, sizeof(jugadorActual));
     guardar.write((char*)&juegoTerminado, sizeof(juegoTerminado));
@@ -220,6 +301,9 @@ void JuegoOCA::guardarPartida(std::string &archivo){
 bool JuegoOCA::cargarPartida(std::string &archivo){
     std::ifstream cargar(archivo, std::ios::binary);
     if (!cargar.is_open()) return false;
+
+    int semillaTablero;
+    cargar.read((char*)&semillaTablero, sizeof(semillaTablero));
 
     cargar.read((char*)&jugadorActual, sizeof(jugadorActual));
     cargar.read((char*)&juegoTerminado, sizeof(juegoTerminado));
@@ -257,7 +341,7 @@ bool JuegoOCA::cargarPartida(std::string &archivo){
         jugadores[i].setEstado(Jugador::Estado(estado), turnosEstado);
     }
 
-    tablero.setTamanio(tamanioTablero);
+    tablero.setTamanio(tamanioTablero, tableroPersonalizado, semillaTablero);
 
     cargar.close();
     return true;

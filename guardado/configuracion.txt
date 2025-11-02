@@ -1,0 +1,58 @@
+=========================================
+    CONFIGURACION JUEGO DE LA OCA
+=========================================
+
+INFORMACION GENERAL:
+====================
+Numero de jugadores: 4
+Jugador actual: 3
+Turno actual: 5
+Juego terminado: No
+Usar dos dados: Si
+Tablero personalizado: Si
+Semilla del tablero: 1762045039
+Tamaño del tablero: 88
+
+INFORMACION DE JUGADORES:
+=========================
+Jugador 1:
+  Nombre: Maxi
+  Posicion: 36
+  Estado: Normal
+  Turnos en estado: 0
+  Posicion penalizado: 0
+
+Jugador 2:
+  Nombre: Ferger
+  Posicion: 46
+  Estado: Normal
+  Turnos en estado: 0
+  Posicion penalizado: 0
+
+Jugador 3:
+  Nombre: Fran
+  Posicion: 24
+  Estado: Normal
+  Turnos en estado: 0
+  Posicion penalizado: 0
+
+Jugador 4:
+  Nombre: Octa
+  Posicion: 37
+  Estado: Normal
+  Turnos en estado: 0
+  Posicion penalizado: 0
+
+INFORMACION DEL TABLERO:
+========================
+Total de casillas: 88
+Casillas especiales:
+  Ocas: 1
+  Puentes: 1
+  Posadas: 2
+  Pozos: 1
+  Laberintos: 0
+  Carceles: 0
+  Calaveras: 3
+  Jardines: 1
+

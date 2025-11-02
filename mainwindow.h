@@ -27,8 +27,9 @@ private slots:
     void mostrarMenuPartida();
     void mostrarMenuJuego();
     void mostrarCreditos();
+    void mostrarReglas();
 
-    void iniciarNuevaPartida(int numJugadores, std::vector<std::string> nombres, int tamTablero, bool personalizado, bool dosDados);
+    void iniciarNuevaPartida(int numJugadores, std::vector<std::string> nombres, int tamTablero, bool personalizado, bool dosDados, int semilla);
     void cargarPartida();
 private:
     Ui::MainWindow* ui;
